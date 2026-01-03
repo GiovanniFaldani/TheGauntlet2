@@ -6,12 +6,44 @@
 #include "GameFramework/PlayerController.h"
 #include "CPP_PlayerController.generated.h"
 
+class UCPP_HUDWidget;
+
 /**
- * 
+ *
  */
 UCLASS()
 class THEGAUNTLET2_API ACPP_PlayerController : public APlayerController
 {
 	GENERATED_BODY()
-	
+
+protected:
+	// The class of the HUD to spawn (Assign this in BP_GauntletPlayerController)
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UCPP_HUDWidget> HUDWidgetClass;
+
+	// The actual instance of the HUD
+	UPROPERTY()
+	TObjectPtr<UCPP_HUDWidget> HUDWidgetInstance;
+
+public:
+	// Print message to screen from anywhere
+	UFUNCTION(BlueprintCallable, Category = "UI")
+	void PublishUIMessage(FString Message);
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+	virtual void OnPossess(APawn* InPawn) override;
+	virtual void SetupInputComponent() override;
+
+	// Helper to bind to the Pawn's delegates
+	void BindToPawnDelegates(APawn* InPawn);
+
+	// Callback when the Pawn broadcasts a health change
+	UFUNCTION()
+	void HandlePawnHealthChanged(float NewHealth, float MaxHealth);
+
+	// Callback when the Pawn broadcasts interactable actor found
+	UFUNCTION()
+	void HandleInteractionMessage(bool Found);
 };
