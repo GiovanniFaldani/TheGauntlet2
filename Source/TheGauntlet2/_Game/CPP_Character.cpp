@@ -129,12 +129,15 @@ void ACPP_Character::MoveCamera(const FInputActionValue& Value)
 void ACPP_Character::OnInteract()
 {
 	if (!CanInteract) return;
+	check(GEngine);
+	GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Blue, TEXT("Interacted"));
 
 	// Get ClosestActor from InteractionComponent and call Interact() on it.
 	if (IsValid(InteractionComponent->ClosestActor) && InteractionComponent->ClosestActor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
 	{
-		//GEngine->AddOnScreenDebugMessage(11, 1.0f, FColor::Red, TEXT("Found interactable!"));
-		IInteractable::Execute_Interact(InteractionComponent->ClosestActor);
+		// GEngine->AddOnScreenDebugMessage(11, 1.0f, FColor::Red, TEXT("Found interactable!"));
+		IInteractable* InteractableActor = Cast<IInteractable>(InteractionComponent->ClosestActor);
+		if (InteractableActor) InteractableActor->Interact(this);
 	}
 
 	// Start timer to limit number of interactions per second

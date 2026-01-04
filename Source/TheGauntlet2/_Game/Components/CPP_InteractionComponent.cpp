@@ -70,6 +70,8 @@ void UCPP_InteractionComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 	// TODO add interact message for player here if interactable actor (Push to widget stack ingame)
 	if (IsValid(ClosestActor) && ClosestActor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
 	{
+		check(GEngine);
+		GEngine->AddOnScreenDebugMessage(0, 0.1, FColor::Yellow, TEXT("Press E to interact!"));
 		onFindInteractable.ExecuteIfBound();
 	}
 	else
