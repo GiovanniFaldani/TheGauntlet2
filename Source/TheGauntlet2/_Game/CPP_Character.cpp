@@ -104,11 +104,13 @@ void ACPP_Character::Move(const FInputActionValue& Value)
 
 	if (IsValid(Controller))
 	{
-		const FVector Right = Camera->GetRightVector();
-		AddMovementInput(Right, MovementValue.X);
+		const FRotator Rotation = Controller->GetControlRotation();
+		const FRotator YawRotation(0, Rotation.Yaw, 0);
+		const FVector Forward = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+		const FVector Right = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
-		// Add forward and back movement
-		const FVector Forward = Camera->GetForwardVector();
+		// Add wasd movement
+		AddMovementInput(Right, MovementValue.X);
 		AddMovementInput(Forward, MovementValue.Y);
 
 	}
@@ -136,8 +138,7 @@ void ACPP_Character::OnInteract()
 	if (IsValid(InteractionComponent->ClosestActor) && InteractionComponent->ClosestActor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
 	{
 		// GEngine->AddOnScreenDebugMessage(11, 1.0f, FColor::Red, TEXT("Found interactable!"));
-		IInteractable* InteractableActor = Cast<IInteractable>(InteractionComponent->ClosestActor);
-		if (InteractableActor) InteractableActor->Interact(this);
+		IInteractable::Execute_Interact(InteractionComponent->ClosestActor, this);
 	}
 
 	// Start timer to limit number of interactions per second

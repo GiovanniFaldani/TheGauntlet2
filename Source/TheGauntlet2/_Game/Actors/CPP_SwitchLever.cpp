@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "_Game/Actors/CPP_TimerLever.h"
+#include "_Game/Actors/CPP_SwitchLever.h"
 
 // Sets default values
-ACPP_TimerLever::ACPP_TimerLever()
+ACPP_SwitchLever::ACPP_SwitchLever()
 {
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+ 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	// Add switch mesh
@@ -14,7 +14,7 @@ ACPP_TimerLever::ACPP_TimerLever()
 }
 
 // Called when the game starts or when spawned
-void ACPP_TimerLever::BeginPlay()
+void ACPP_SwitchLever::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -30,49 +30,47 @@ void ACPP_TimerLever::BeginPlay()
 		}
 	}
 
-	bIsActive = false;
+	bIsOn = false;
 }
 
 // Called every frame
-void ACPP_TimerLever::Tick(float DeltaTime)
+void ACPP_SwitchLever::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
 }
 
-void ACPP_TimerLever::ActivateLever()
+void ACPP_SwitchLever::ActivateSwitch()
 {
 	check(GEngine);
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("Lever Activated"));
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("Switch Activated"));
 
-	onLeverPull.ExecuteIfBound();
-	bIsActive = true;
+	onSwitchOn.ExecuteIfBound();
+	bIsOn = true;
 
 	DynamicMaterialInstance->SetVectorParameterValue(FName("Color"), FLinearColor::Green);
-
-	// Start timer
-	GetWorld()->GetTimerManager().SetTimer(
-		LeverTimerHandle,
-		this,
-		&ACPP_TimerLever::DeactivateLever,
-		LeverTimer,
-		false
-	);
 }
 
-void ACPP_TimerLever::DeactivateLever()
+void ACPP_SwitchLever::DeactivateSwitch()
 {
 	check(GEngine);
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("Lever Deactivated"));
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("Switch Deactivated"));
 
-	onLeverUndo.ExecuteIfBound();
-	bIsActive = false;
+	onSwitchOff.ExecuteIfBound();
+	bIsOn = false;
 
 	DynamicMaterialInstance->SetVectorParameterValue(FName("Color"), FLinearColor::Red);
 }
 
-void ACPP_TimerLever::Interact_Implementation(AActor* Interacter)
+void ACPP_SwitchLever::Interact_Implementation(AActor* Interacter)
 {
-	if(!bIsActive) ActivateLever();
+	if (bIsOn)
+	{
+		DeactivateSwitch();
+	}
+	else
+	{
+		ActivateSwitch();
+	}
 }
 

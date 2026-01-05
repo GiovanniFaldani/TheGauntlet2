@@ -24,6 +24,10 @@ public:
 	OnLeverPull onLeverPull;
 	OnLeverUndo onLeverUndo;
 
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Timer Lever")
 	bool bIsActive;
 
@@ -35,10 +39,6 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Timer Lever")
 	UMaterialInstanceDynamic* DynamicMaterialInstance;
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Timer Lever")
 	UStaticMeshComponent* Mesh;
@@ -53,5 +53,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Timer Lever")
 	void DeactivateLever();
 
-	virtual void Interact(AActor* Interacter) override;
+	UFUNCTION(BlueprintCallable, Category = "Timer Lever")
+	void Interact_Implementation(AActor* Interacter);
 };
