@@ -57,7 +57,7 @@ void ACPP_Turret::BeginPlay()
 
 		if (DynamicMat)
 		{
-			UpdateColor(FColor::Blue);
+			UpdateColor(FColor::Orange);
 		}
 	}
 
@@ -132,6 +132,7 @@ void ACPP_Turret::UpdateColor(FColor NewColor)
 	if (DynamicMat)
 	{
 		DynamicMat->SetVectorParameterValue(TEXT("Color"), NewColor);
+		Mesh->SetMaterial(0, DynamicMat);
 	}
 }
 

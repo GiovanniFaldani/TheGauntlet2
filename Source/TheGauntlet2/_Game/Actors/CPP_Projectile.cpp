@@ -21,8 +21,6 @@ ACPP_Projectile::ACPP_Projectile()
 	Mesh->SetupAttachment(Collision);
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
-	ProjectileMovement->InitialSpeed = 2000.f;
-	ProjectileMovement->MaxSpeed = 2000.f;
 	ProjectileMovement->bRotationFollowsVelocity = true;
 
 	// start inactive
@@ -80,6 +78,9 @@ void ACPP_Projectile::Activate_Implementation(FObjectPoolActivationData ObjectPo
 
 	// Start movement
 	ProjectileMovement->SetUpdatedComponent(RootComponent);
+	ProjectileMovement->ResetInterpolation();
+	ProjectileMovement->InitialSpeed = ProjectileSpeed;
+	ProjectileMovement->MaxSpeed = ProjectileSpeed;
 	ProjectileMovement->Velocity = GetActorForwardVector() * ProjectileMovement->InitialSpeed;
 	ProjectileMovement->Activate();
 

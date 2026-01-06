@@ -47,7 +47,7 @@ void ACPP_PlatformRing::BeginPlay()
         FActorSpawnParameters SpawnParams;
         SpawnParams.Owner = this;
 
-        AActor* NewPlat = GetWorld()->SpawnActor<AActor>(PlatformActor, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
+        ACPP_Platform* NewPlat = Cast<ACPP_Platform>(GetWorld()->SpawnActor<AActor>(PlatformActor, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams));
 
         if (IsValid(NewPlat))
         {
@@ -60,6 +60,9 @@ void ACPP_PlatformRing::BeginPlay()
             Platforms.Add(NewPlat);
         }
     }
+
+    // Init color
+    UpdateColor(FColor::Blue);
 }
 
 // Called every frame
@@ -97,5 +100,21 @@ void ACPP_PlatformRing::Tick(float DeltaTime)
 void ACPP_PlatformRing::ToggleMovement()
 {
     bIsActive = !bIsActive;
+    if(bIsActive)
+    {
+        UpdateColor(FColor::Green);
+    }
+    else
+    {
+        UpdateColor(FColor::Blue);
+	}
+}
+
+void ACPP_PlatformRing::UpdateColor(FColor NewColor)
+{
+    for (int i = 0; i < Platforms.Num(); i++)
+    {
+        Platforms[i]->UpdateColor(NewColor);
+    }
 }
 

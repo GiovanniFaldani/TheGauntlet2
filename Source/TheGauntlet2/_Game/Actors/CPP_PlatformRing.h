@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "CPP_Platform.h"
 #include "CPP_SwitchLever.h"
 #include "CPP_PlatformRing.generated.h"
 
@@ -26,28 +27,30 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Ring")
 	ACPP_SwitchLever* LinkedSwitch;
 
-	UPROPERTY(EditAnywhere, Category = "Platform Ring")
-	TSubclassOf<AActor> PlatformActor;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Ring")
+	TSubclassOf<ACPP_Platform> PlatformActor;
 
-	UPROPERTY(EditAnywhere, Category = "Platform Ring", meta = (ClampMin = "1"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Ring", meta = (ClampMin = "1"))
 	int NumPlatforms;
 
-	UPROPERTY(EditAnywhere, Category = "Platform Ring")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Ring")
 	float Radius;
 
-	UPROPERTY(EditAnywhere, Category = "Platform Ring")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Ring")
 	float RotationSpeed; // speed in degrees
 
-	UPROPERTY(EditAnywhere, Category = "Platform Ring")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Ring")
 	USceneComponent* PivotRoot;
 
-	UPROPERTY(EditAnywhere, Category = "Platform Ring")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Ring")
 	bool bIsActive;
 
-	UPROPERTY()
-	TArray<AActor*> Platforms;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Ring")
+	TArray<ACPP_Platform*> Platforms;
 
 	float CurrentAngle;
+
+	void UpdateColor(FColor NewColor);
 
 public:	
 	// Called every frame

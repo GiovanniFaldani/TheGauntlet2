@@ -24,6 +24,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile", meta = (ClampMin = "1"))
 	float LifeSpanSeconds;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile", meta = (ClampMin = "1"))
+	float ProjectileSpeed;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
 	USphereComponent* Collision;
 
