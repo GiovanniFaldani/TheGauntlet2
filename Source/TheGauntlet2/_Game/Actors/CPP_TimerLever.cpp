@@ -69,6 +69,8 @@ void ACPP_TimerLever::DeactivateLever()
 	bIsActive = false;
 
 	DynamicMaterialInstance->SetVectorParameterValue(FName("Color"), FLinearColor::Red);
+
+	GetWorld()->GetTimerManager().ClearTimer(LeverTimerHandle);
 }
 
 void ACPP_TimerLever::Interact_Implementation(AActor* Interacter)

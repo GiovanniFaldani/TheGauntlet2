@@ -107,14 +107,7 @@ void UCPP_ObjectPoolSubsystem::ReturnObjectToPool(TSubclassOf<AActor> ClassPool,
 	}
 
 	// Deactivate object pool
-	if (ActorToReturn.GetInterface())
-	{
-		ActorToReturn.GetInterface()->Deactivate();
-	}
-	else
-	{
-		IObjectPoolInterface::Execute_Deactivate(ActorToReturn.GetObject());
-	}
+	IObjectPoolInterface::Execute_Deactivate(ActorToReturn.GetObject());
 
 	// We get the object pool with our pool objects
 	FObjectPool* PoolObject = ObjectPoolMap.Find(ClassPool);
