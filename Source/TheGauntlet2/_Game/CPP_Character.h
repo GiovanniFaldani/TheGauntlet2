@@ -9,6 +9,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "CPP_PlayerController.h"
 #include "Interfaces/Interactable.h"
 #include "Interfaces/Damageable.h"
 #include "Components/CPP_InteractionComponent.h"
@@ -76,6 +77,10 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	TObjectPtr<UInputAction> InteractAction;
 
+	// Pause Input Action
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
+	TObjectPtr<UInputAction> PauseAction;
+
 	// Camera
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera)
 	TObjectPtr<UCameraComponent> Camera;
@@ -134,11 +139,19 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Player)
 	void OnInteract();
 
+	UFUNCTION(BlueprintCallable, Category = Player)
+	void OnPause();
+
 	UFUNCTION(BlueprintCallable, Category = Inventory)
-	void SetKeyCollected(bool Value);
+	void SetArtifactCollected(bool Value);
+
+	UFUNCTION(BlueprintCallable, Category = Inventory)
+	FTransform GetSocketRelativeTransform();
 
 	virtual void ReceiveDamage_Implementation(float DamageReceived) override;
 
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	UInputMappingContext* GetInputMappingContext() const { return InputMappingContext; }
+
+
 };

@@ -84,6 +84,49 @@ void ACPP_PlayerController::HandleInteractionMessage(bool Found)
 	}
 }
 
+void ACPP_PlayerController::TogglePauseMenu()
+{
+	if (IsPaused())
+	{
+		UnPause();
+	}
+	else
+	{
+		// PAUSE
+		if (PauseWidgetClass)
+		{
+			check(GEngine);
+			GEngine->AddOnScreenDebugMessage(5, 1.0f, FColor::Blue, TEXT("Paused"));
+
+			PauseWidgetInstance = CreateWidget<UUserWidget>(this, PauseWidgetClass);
+			if (PauseWidgetInstance)
+			{
+				PauseWidgetInstance->AddToViewport();
+				bShowMouseCursor = true;
+
+				FInputModeGameAndUI InputModeData;
+				InputModeData.SetWidgetToFocus(PauseWidgetInstance->TakeWidget());
+				InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+				SetInputMode(InputModeData);
+				SetPause(true);
+			}
+		}
+	}
+}
+
+void ACPP_PlayerController::UnPause()
+{
+	// RESUME
+	check(GEngine);
+	GEngine->AddOnScreenDebugMessage(5, 1.0f, FColor::Blue, TEXT("Unpaused"));
+
+	SetPause(false);
+	bShowMouseCursor = false;
+	SetInputMode(FInputModeGameOnly());
+
+	if (PauseWidgetInstance) PauseWidgetInstance->RemoveFromParent();
+}
+
 void ACPP_PlayerController::PublishUIMessage(FString Message)
 {
 	if (HUDWidgetInstance)

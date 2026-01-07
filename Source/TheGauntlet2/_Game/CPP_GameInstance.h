@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "CPP_PlayerController.h"
 #include "CPP_GameInstance.generated.h"
 
 /**
@@ -20,5 +21,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = LevelControl)
 	void QuitGame();
+
+	UFUNCTION(BlueprintCallable, Category = StateControl)
+	void UnPause();
 
 };

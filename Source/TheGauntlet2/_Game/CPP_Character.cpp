@@ -99,6 +99,9 @@ void ACPP_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 		// Bind Interact Action
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Triggered, this, &ACPP_Character::OnInteract);
+
+		// Bind Pause Action
+		EnhancedInputComponent->BindAction(PauseAction, ETriggerEvent::Triggered, this, &ACPP_Character::OnPause);
 	}
 
 }
@@ -152,6 +155,15 @@ void ACPP_Character::OnInteract()
 
 }
 
+void ACPP_Character::OnPause()
+{
+	// Pause the game
+	if (ACPP_PlayerController* PlayerController = Cast<ACPP_PlayerController>(Controller))
+	{
+		PlayerController->TogglePauseMenu();
+	}
+}
+
 void ACPP_Character::ReceiveDamage_Implementation(float DamageReceived)
 {
 	HP -= DamageReceived;
@@ -162,10 +174,17 @@ void ACPP_Character::ReceiveDamage_Implementation(float DamageReceived)
 	}
 }
 
-void ACPP_Character::SetKeyCollected(bool Value)
+void ACPP_Character::SetArtifactCollected(bool Value)
 {
 	// TODO artifact collection and use logic
 	bHasArtifact = Value;
+
+
+}
+
+FTransform ACPP_Character::GetSocketRelativeTransform()
+{
+	return ArtifactSocket->GetRelativeTransform();
 }
 
 float ACPP_Character::GetMaxHP()

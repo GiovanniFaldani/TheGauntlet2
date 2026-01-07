@@ -18,3 +18,13 @@ void UCPP_GameInstance::QuitGame()
 	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(World, 0);
 	UKismetSystemLibrary::QuitGame(World, PlayerController, EQuitPreference::Quit, false);
 }
+
+void UCPP_GameInstance::UnPause()
+{
+	UWorld* const World = GetWorld();
+	ACPP_PlayerController* PlayerController = Cast<ACPP_PlayerController>(UGameplayStatics::GetPlayerController(World, 0));
+	if(IsValid(PlayerController) && PlayerController->IsPaused())
+	{
+		PlayerController->UnPause();
+	}
+}

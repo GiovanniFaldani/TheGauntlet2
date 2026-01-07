@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "Blueprint/UserWidget.h"
 #include "CPP_PlayerController.generated.h"
 
 class UCPP_HUDWidget;
@@ -17,7 +18,7 @@ class THEGAUNTLET2_API ACPP_PlayerController : public APlayerController
 	GENERATED_BODY()
 
 protected:
-	// The class of the HUD to spawn (Assign this in BP_GauntletPlayerController)
+	// The class of the HUD to spawn
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UCPP_HUDWidget> HUDWidgetClass;
 
@@ -25,10 +26,22 @@ protected:
 	UPROPERTY()
 	TObjectPtr<UCPP_HUDWidget> HUDWidgetInstance;
 
+	// same but for pause menu
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UUserWidget> PauseWidgetClass;
+
+	UPROPERTY()
+	TObjectPtr<UUserWidget> PauseWidgetInstance;
+
 public:
 	// Print message to screen from anywhere
 	UFUNCTION(BlueprintCallable, Category = "UI")
 	void PublishUIMessage(FString Message);
+
+	UFUNCTION(BlueprintCallable, Category = "UI")
+	void TogglePauseMenu();
+
+	void UnPause();
 
 protected:
 	// Called when the game starts or when spawned

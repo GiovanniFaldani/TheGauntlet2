@@ -25,3 +25,8 @@ void ACPP_Artifact::Tick(float DeltaTime)
 
 }
 
+void ACPP_Artifact::Interact_Implementation(AActor* Interacter)
+{
+
+}
+

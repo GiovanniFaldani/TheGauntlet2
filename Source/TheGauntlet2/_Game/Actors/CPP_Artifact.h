@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "../Interfaces/Interactable.h"
 #include "CPP_Artifact.generated.h"
 
 UCLASS()
-class THEGAUNTLET2_API ACPP_Artifact : public AActor
+class THEGAUNTLET2_API ACPP_Artifact : public AActor, public IInteractable
 {
 	GENERATED_BODY()
 	
@@ -23,4 +24,5 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	void Interact_Implementation(AActor* Interacter) override;
 };

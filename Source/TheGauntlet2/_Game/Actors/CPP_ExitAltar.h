@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "../Interfaces/Interactable.h"
 #include "CPP_ExitAltar.generated.h"
 
 UCLASS()
-class THEGAUNTLET2_API ACPP_ExitAltar : public AActor
+class THEGAUNTLET2_API ACPP_ExitAltar : public AActor, public IInteractable
 {
 	GENERATED_BODY()
 	
@@ -32,4 +33,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	void Interact_Implementation(AActor* Interacter) override;
+
+	UFUNCTION(BlueprintCallable, Category = "Altar")
+	FTransform GetSocketRelativeTransform();
 };
