@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "CPP_TimerLever.h"
+//#include "CPP_TimerLever.h"
 #include "CPP_Turret.generated.h"
 
 UCLASS()
@@ -22,8 +22,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Turret", meta = (ClampMin = "1"))
 	int32 ProjectilePoolSize;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Turret")
-	ACPP_TimerLever* LinkedLever;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Turret")
+	//ACPP_TimerLever* LinkedLever;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Turret", meta = (ClampMin = "0.01"))
 	float FireRate;

@@ -23,7 +23,6 @@ class UInputComponent;
 DECLARE_MULTICAST_DELEGATE(OnGameOver);
 DECLARE_MULTICAST_DELEGATE(OnFallOutOFWorld);
 DECLARE_MULTICAST_DELEGATE(OnLevelComplete);
-DECLARE_MULTICAST_DELEGATE(OnKeyCollected);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHealthChanged, float, NewHealth, float, MaxHealth);
 
@@ -40,7 +39,6 @@ public:
 	OnGameOver onGameOver;
 	OnFallOutOFWorld onFallOutOfWorld;
 	OnLevelComplete onLevelComplete;
-	OnKeyCollected onKeyCollected;
 
 	UPROPERTY(BlueprintAssignable)
 	FOnHealthChanged onHealthChanged;
@@ -90,7 +88,10 @@ protected:
 
 	// Inventory
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Inventory)
-	bool bHasKey;
+	bool bHasArtifact;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Inventory)
+	USceneComponent* ArtifactSocket;
 
 	// Interaction
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Interaction)

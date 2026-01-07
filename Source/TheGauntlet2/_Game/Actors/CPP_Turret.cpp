@@ -62,11 +62,11 @@ void ACPP_Turret::BeginPlay()
 	}
 
 	// add delegates to linked lever
-	if (IsValid(LinkedLever))
+	/*if (IsValid(LinkedLever))
 	{
 		LinkedLever->onLeverPull.BindUObject(this, &ACPP_Turret::ToggleTurretState);
 		LinkedLever->onLeverUndo.BindUObject(this, &ACPP_Turret::ToggleTurretState);
-	}
+	}*/
 
 	// start timer
 	GetWorld()->GetTimerManager().SetTimer(

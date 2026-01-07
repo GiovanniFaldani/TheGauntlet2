@@ -14,7 +14,7 @@ ACPP_PlatformRing::ACPP_PlatformRing()
     RootComponent = PivotRoot;
 
     // defaults
-    LinkedSwitch = nullptr;
+    //LinkedSwitch = nullptr;
     bIsActive = false;
     CurrentAngle = 0.f;
     NumPlatforms = 4;
@@ -35,11 +35,11 @@ void ACPP_PlatformRing::BeginPlay()
     }
 
     // check that there is a switch assigned to this platform ring and add events
-    if (IsValid(LinkedSwitch))
-    {
-        LinkedSwitch->onSwitchOn.BindUObject(this, &ACPP_PlatformRing::ToggleMovement);
-        LinkedSwitch->onSwitchOff.BindUObject(this, &ACPP_PlatformRing::ToggleMovement);
-    }
+    //if (IsValid(LinkedSwitch))
+    //{
+    //    LinkedSwitch->onSwitchOn.BindUObject(this, &ACPP_PlatformRing::ToggleMovement);
+    //    LinkedSwitch->onSwitchOff.BindUObject(this, &ACPP_PlatformRing::ToggleMovement);
+    //}
 
     // create specified number of platforms
     for (int i = 0; i < NumPlatforms; i++)

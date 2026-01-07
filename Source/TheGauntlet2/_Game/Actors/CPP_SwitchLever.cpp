@@ -45,8 +45,11 @@ void ACPP_SwitchLever::ActivateSwitch()
 	check(GEngine);
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("Switch Activated"));
 
-	onSwitchOn.ExecuteIfBound();
+	//onSwitchOn.ExecuteIfBound();
 	bIsOn = true;
+
+	if (IsValid(LinkedDoor)) LinkedDoor->ToggleDoor();
+	if (IsValid(LinkedPlatforms)) LinkedPlatforms->ToggleMovement();
 
 	DynamicMaterialInstance->SetVectorParameterValue(FName("Color"), FLinearColor::Green);
 }
@@ -56,8 +59,11 @@ void ACPP_SwitchLever::DeactivateSwitch()
 	check(GEngine);
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("Switch Deactivated"));
 
-	onSwitchOff.ExecuteIfBound();
+	//onSwitchOff.ExecuteIfBound();
 	bIsOn = false;
+
+	if (IsValid(LinkedDoor)) LinkedDoor->ToggleDoor();
+	if (IsValid(LinkedPlatforms)) LinkedPlatforms->ToggleMovement();
 
 	DynamicMaterialInstance->SetVectorParameterValue(FName("Color"), FLinearColor::Red);
 }

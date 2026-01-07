@@ -30,6 +30,11 @@ ACPP_Character::ACPP_Character()
 
 	// Set up interaction component
 	InteractionComponent = CreateDefaultSubobject<UCPP_InteractionComponent>(TEXT("Interaction"));
+
+	// setup artifact socket
+	ArtifactSocket = CreateDefaultSubobject<USceneComponent>(TEXT("ArtifactSocket"));
+	ArtifactSocket->SetupAttachment(RootComponent);
+	ArtifactSocket->SetRelativeLocation(FVector(50.f, 50.f, 100.f));
 }
 
 // Called when the game starts or when spawned
@@ -159,9 +164,8 @@ void ACPP_Character::ReceiveDamage_Implementation(float DamageReceived)
 
 void ACPP_Character::SetKeyCollected(bool Value)
 {
-	bHasKey = Value;
-	// delegate execution to open door and destroy key
-	if (Value) onKeyCollected.Broadcast();
+	// TODO artifact collection and use logic
+	bHasArtifact = Value;
 }
 
 float ACPP_Character::GetMaxHP()

@@ -4,12 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "CPP_Turret.h"
 #include "../Interfaces/Interactable.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "CPP_TimerLever.generated.h"
 
-DECLARE_DELEGATE(OnLeverPull)
-DECLARE_DELEGATE(OnLeverUndo)
+//DECLARE_DELEGATE(OnLeverPull)
+//DECLARE_DELEGATE(OnLeverUndo)
 
 UCLASS()
 class THEGAUNTLET2_API ACPP_TimerLever : public AActor, public IInteractable
@@ -21,8 +22,8 @@ public:
 	ACPP_TimerLever();
 
 	// delegates
-	OnLeverPull onLeverPull;
-	OnLeverUndo onLeverUndo;
+	//OnLeverPull onLeverPull;
+	//OnLeverUndo onLeverUndo;
 
 protected:
 	// Called when the game starts or when spawned
@@ -42,6 +43,10 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Timer Lever")
 	UStaticMeshComponent* Mesh;
+
+	// editonly turret pointer
+	UPROPERTY(EditInstanceOnly, Category = "Timer Lever")
+	ACPP_Turret* LinkedTurret;
 
 public:
 	// Called every frame

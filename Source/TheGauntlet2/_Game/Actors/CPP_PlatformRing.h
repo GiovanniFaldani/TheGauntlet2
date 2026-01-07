@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "CPP_Platform.h"
-#include "CPP_SwitchLever.h"
+//#include "CPP_SwitchLever.h"
 #include "CPP_PlatformRing.generated.h"
 
 UCLASS()
@@ -24,8 +24,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Ring")
-	ACPP_SwitchLever* LinkedSwitch;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Ring")
+	//ACPP_SwitchLever* LinkedSwitch;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Ring")
 	TSubclassOf<ACPP_Platform> PlatformActor;

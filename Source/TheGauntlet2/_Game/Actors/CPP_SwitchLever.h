@@ -4,12 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "CPP_Door.h"
+#include "CPP_PlatformRing.h"
 #include "../Interfaces/Interactable.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "CPP_SwitchLever.generated.h"
 
-DECLARE_DELEGATE(OnSwitchOn)
-DECLARE_DELEGATE(OnSwitchOff)
+//DECLARE_DELEGATE(OnSwitchOn)
+//DECLARE_DELEGATE(OnSwitchOff)
 
 UCLASS()
 class THEGAUNTLET2_API ACPP_SwitchLever : public AActor, public IInteractable
@@ -21,8 +23,8 @@ public:
 	ACPP_SwitchLever();
 
 	// delegates
-	OnSwitchOn onSwitchOn;
-	OnSwitchOff onSwitchOff;
+	//OnSwitchOn onSwitchOn;
+	//OnSwitchOff onSwitchOff;
 
 protected:
 	// Called when the game starts or when spawned
@@ -36,6 +38,13 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Switch Lever")
 	UStaticMeshComponent* Mesh;
+
+	// editonly actor pointers
+	UPROPERTY(EditInstanceOnly, Category = "Switch Lever")
+	ACPP_Door* LinkedDoor;
+
+	UPROPERTY(EditInstanceOnly, Category = "Switch Lever")
+	ACPP_PlatformRing* LinkedPlatforms;
 
 public:	
 	// Called every frame

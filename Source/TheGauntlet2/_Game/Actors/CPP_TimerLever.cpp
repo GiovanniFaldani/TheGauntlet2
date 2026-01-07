@@ -45,10 +45,13 @@ void ACPP_TimerLever::ActivateLever()
 	check(GEngine);
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("Lever Activated"));
 
-	onLeverPull.ExecuteIfBound();
+	//onLeverPull.ExecuteIfBound();
 	bIsActive = true;
 
 	DynamicMaterialInstance->SetVectorParameterValue(FName("Color"), FLinearColor::Green);
+
+	// update turret
+	if(IsValid(LinkedTurret)) LinkedTurret->ToggleTurretState();
 
 	// Start timer
 	GetWorld()->GetTimerManager().SetTimer(
@@ -65,10 +68,13 @@ void ACPP_TimerLever::DeactivateLever()
 	check(GEngine);
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("Lever Deactivated"));
 
-	onLeverUndo.ExecuteIfBound();
+	//onLeverUndo.ExecuteIfBound();
 	bIsActive = false;
 
 	DynamicMaterialInstance->SetVectorParameterValue(FName("Color"), FLinearColor::Red);
+
+	// update turret
+	if (IsValid(LinkedTurret)) LinkedTurret->ToggleTurretState();
 
 	GetWorld()->GetTimerManager().ClearTimer(LeverTimerHandle);
 }
