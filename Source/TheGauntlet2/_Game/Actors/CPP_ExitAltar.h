@@ -37,4 +37,6 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Altar")
 	FTransform GetSocketRelativeTransform();
+
+	void UpdateColor(FColor NewColor);
 };

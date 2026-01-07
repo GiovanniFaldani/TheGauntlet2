@@ -19,6 +19,15 @@ ACPP_ExitAltar::ACPP_ExitAltar()
 void ACPP_ExitAltar::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// set color
+	if (Mesh && Mesh->GetMaterial(0))
+	{
+		// Init dynamic material based on static material assigned in editor
+		DynamicMat = UMaterialInstanceDynamic::Create(Mesh->GetMaterial(0), this);
+
+		UpdateColor(FColor::Purple);
+	}
 	
 }
 
@@ -31,11 +40,20 @@ void ACPP_ExitAltar::Tick(float DeltaTime)
 
 void ACPP_ExitAltar::Interact_Implementation(AActor* Interacter)
 {
-
+	// check that Interacter is Player class
 }
 
 FTransform ACPP_ExitAltar::GetSocketRelativeTransform()
 {
 	return ArtifactSocket->GetRelativeTransform();
+}
+
+void ACPP_ExitAltar::UpdateColor(FColor NewColor)
+{
+	if (DynamicMat)
+	{
+		DynamicMat->SetVectorParameterValue(TEXT("Color"), NewColor);
+		Mesh->SetMaterial(0, DynamicMat);
+	}
 }
 

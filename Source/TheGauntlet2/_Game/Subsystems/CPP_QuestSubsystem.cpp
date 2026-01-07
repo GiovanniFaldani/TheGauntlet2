@@ -43,3 +43,8 @@ void UCPP_QuestSubsystem::OnAssetsLoaded(TSoftObjectPtr<UNiagaraSystem> VfxPtr, 
         }
     }
 }
+
+void UCPP_QuestSubsystem::CompleteQuest()
+{
+
+}

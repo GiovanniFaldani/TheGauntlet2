@@ -36,4 +36,5 @@ protected:
 
     void OnAssetsLoaded(TSoftObjectPtr<UNiagaraSystem> VfxPtr, TSoftObjectPtr<USoundBase> SfxPtr);
 
+    void CompleteQuest();
 };

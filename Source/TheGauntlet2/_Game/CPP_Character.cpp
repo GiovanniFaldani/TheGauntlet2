@@ -174,17 +174,22 @@ void ACPP_Character::ReceiveDamage_Implementation(float DamageReceived)
 	}
 }
 
-void ACPP_Character::SetArtifactCollected(bool Value)
+void ACPP_Character::SetArtifactCollected(bool Value, AActor* Artifact)
 {
-	// TODO artifact collection and use logic
+	// artifact collection and use logic
 	bHasArtifact = Value;
-
+	HeldArtifact = Value ? Artifact : nullptr;
 
 }
 
-FTransform ACPP_Character::GetSocketRelativeTransform()
+bool ACPP_Character::IsArtifactCollected()
 {
-	return ArtifactSocket->GetRelativeTransform();
+	return bHasArtifact;
+}
+
+USceneComponent* ACPP_Character::GetArtifactSocket()
+{
+	return ArtifactSocket;
 }
 
 float ACPP_Character::GetMaxHP()

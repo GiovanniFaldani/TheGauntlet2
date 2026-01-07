@@ -98,6 +98,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Inventory)
 	USceneComponent* ArtifactSocket;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Inventory)
+	AActor* HeldArtifact;
+
 	// Interaction
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Interaction)
 	TObjectPtr<UCPP_InteractionComponent> InteractionComponent;
@@ -143,10 +146,13 @@ public:
 	void OnPause();
 
 	UFUNCTION(BlueprintCallable, Category = Inventory)
-	void SetArtifactCollected(bool Value);
+	void SetArtifactCollected(bool Value, AActor* Artifact);
 
 	UFUNCTION(BlueprintCallable, Category = Inventory)
-	FTransform GetSocketRelativeTransform();
+	bool IsArtifactCollected();
+
+	UFUNCTION(BlueprintCallable, Category = Inventory)
+	USceneComponent* GetArtifactSocket();
 
 	virtual void ReceiveDamage_Implementation(float DamageReceived) override;
 

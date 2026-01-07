@@ -55,10 +55,7 @@ void ACPP_Turret::BeginPlay()
 		// Init dynamic material based on static material assigned in editor
 		DynamicMat = UMaterialInstanceDynamic::Create(Mesh->GetMaterial(0), this);
 
-		if (DynamicMat)
-		{
-			UpdateColor(FColor::Orange);
-		}
+		UpdateColor(FColor::Orange);
 	}
 
 	// add delegates to linked lever

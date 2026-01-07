@@ -16,6 +16,15 @@ public:
 	// Sets default values for this actor's properties
 	ACPP_Artifact();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Artifact")
+	UStaticMeshComponent* Mesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Artifact")
+	UMaterialInstanceDynamic* DynamicMat;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Artifact")
+	FName AttachmentSocketName = "ArtifactSocket";
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -25,4 +34,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void Interact_Implementation(AActor* Interacter) override;
+
+	void UpdateColor(FColor NewColor);
 };
