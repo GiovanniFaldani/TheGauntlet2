@@ -62,7 +62,7 @@ void ACPP_PlatformRing::BeginPlay()
     }
 
     // Init color
-    UpdateColor(FColor::Blue);
+    UpdateColor(FColor::Cyan);
 }
 
 // Called every frame

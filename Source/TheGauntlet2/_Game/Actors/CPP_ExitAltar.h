@@ -4,7 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Kismet/GameplayStatics.h"
 #include "../Interfaces/Interactable.h"
+#include "../CPP_Character.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraSystem.h"
+#include "../Subsystems/CPP_QuestSubsystem.h"
 #include "CPP_ExitAltar.generated.h"
 
 UCLASS()
@@ -22,8 +27,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Altar")
 	UMaterialInstanceDynamic* DynamicMat;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Altar")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Altar")
 	USceneComponent* ArtifactSocket;
+
+	// quest ID must be present in data table
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Altar")
+	FName QuestID = "Quest1";
 
 protected:
 	// Called when the game starts or when spawned
@@ -36,7 +45,10 @@ public:
 	void Interact_Implementation(AActor* Interacter) override;
 
 	UFUNCTION(BlueprintCallable, Category = "Altar")
-	FTransform GetSocketRelativeTransform();
+	USceneComponent* GetArtifactSocket();
+
+	UFUNCTION(BlueprintCallable, Category = "Altar")
+	void OnVictoryAssetsLoaded(UNiagaraSystem* VFX, USoundBase* SFX);
 
 	void UpdateColor(FColor NewColor);
 };

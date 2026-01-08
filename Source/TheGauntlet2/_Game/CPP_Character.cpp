@@ -192,6 +192,11 @@ USceneComponent* ACPP_Character::GetArtifactSocket()
 	return ArtifactSocket;
 }
 
+AActor* ACPP_Character::GetArtifactRef()
+{
+	return HeldArtifact;
+}
+
 float ACPP_Character::GetMaxHP()
 {
 	return MaxHP;

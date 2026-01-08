@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Engine/StreamableManager.h"
+#include "NiagaraSystem.h"
 #include "CPP_QuestSubsystem.generated.h"
 
 /**

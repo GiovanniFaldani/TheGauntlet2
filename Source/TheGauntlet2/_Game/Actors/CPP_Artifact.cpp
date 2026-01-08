@@ -44,13 +44,7 @@ void ACPP_Artifact::Interact_Implementation(AActor* Interacter)
     Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	UpdateColor(FColor::Green);
 
-    this->AttachToComponent(
-        Player->GetArtifactSocket(),
-        FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-        AttachmentSocketName
-    );
-
-
+    this->AttachToComponent(Player->GetArtifactSocket(), FAttachmentTransformRules::SnapToTargetNotIncludingScale);
     Player->SetArtifactCollected(true, this);
 
 }

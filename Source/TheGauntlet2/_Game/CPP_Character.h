@@ -154,6 +154,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Inventory)
 	USceneComponent* GetArtifactSocket();
 
+	UFUNCTION(BlueprintCallable, Category = Inventory)
+	AActor* GetArtifactRef();
+
 	virtual void ReceiveDamage_Implementation(float DamageReceived) override;
 
 	UFUNCTION(BlueprintCallable, Category = "Input")

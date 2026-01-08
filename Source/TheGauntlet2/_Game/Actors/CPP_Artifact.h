@@ -22,9 +22,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Artifact")
 	UMaterialInstanceDynamic* DynamicMat;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Artifact")
-	FName AttachmentSocketName = "ArtifactSocket";
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
