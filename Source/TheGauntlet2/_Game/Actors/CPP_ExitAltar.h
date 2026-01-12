@@ -32,7 +32,7 @@ public:
 
 	// quest ID must be present in data table
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Altar")
-	FName QuestID = "Quest1";
+	FName QuestID = "Quest01";
 
 protected:
 	// Called when the game starts or when spawned

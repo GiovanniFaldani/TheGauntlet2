@@ -9,6 +9,15 @@ void UCPP_QuestSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
 
+    const TCHAR* TablePath = TEXT("/_Game/Assets/DT_Quests.DT_Quests");
+
+    static ConstructorHelpers::FObjectFinder<UDataTable> DataTableAsset(TablePath);
+
+    if (!QuestDataTable)
+    {
+        QuestDataTable = LoadObject<UDataTable>(nullptr, TablePath);
+    }
+
 }
 
 void UCPP_QuestSubsystem::LoadQuestAssetsAsync(FName QuestID)
