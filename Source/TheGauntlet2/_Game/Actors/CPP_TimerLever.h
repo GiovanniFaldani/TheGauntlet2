@@ -59,5 +59,5 @@ public:
 	void DeactivateLever();
 
 	UFUNCTION(BlueprintCallable, Category = "Timer Lever")
-	void Interact_Implementation(AActor* Interacter);
+	virtual void Interact(AActor* Interacter) override;
 };

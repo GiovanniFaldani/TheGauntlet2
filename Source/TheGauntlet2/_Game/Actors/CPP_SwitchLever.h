@@ -57,6 +57,6 @@ public:
 	void DeactivateSwitch();
 
 	UFUNCTION(BlueprintCallable, Category = "Switch Lever")
-	void Interact_Implementation(AActor* Interacter);
+	virtual void Interact(AActor* Interacter) override;
 
 };

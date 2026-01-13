@@ -79,7 +79,7 @@ void ACPP_TimerLever::DeactivateLever()
 	GetWorld()->GetTimerManager().ClearTimer(LeverTimerHandle);
 }
 
-void ACPP_TimerLever::Interact_Implementation(AActor* Interacter)
+void ACPP_TimerLever::Interact(AActor* Interacter)
 {
 	if(!bIsActive) ActivateLever();
 }

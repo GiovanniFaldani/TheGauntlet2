@@ -35,7 +35,7 @@ void ACPP_Artifact::Tick(float DeltaTime)
 
 }
 
-void ACPP_Artifact::Interact_Implementation(AActor* Interacter)
+void ACPP_Artifact::Interact(AActor* Interacter)
 {
     ACPP_Character* Player = Cast<ACPP_Character>(Interacter);
     if (!Player) return;

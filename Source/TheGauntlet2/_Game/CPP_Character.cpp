@@ -146,7 +146,8 @@ void ACPP_Character::OnInteract()
 	if (IsValid(InteractionComponent->ClosestActor) && InteractionComponent->ClosestActor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
 	{
 		// GEngine->AddOnScreenDebugMessage(11, 1.0f, FColor::Red, TEXT("Found interactable!"));
-		IInteractable::Execute_Interact(InteractionComponent->ClosestActor, this);
+		IInteractable* InteractableActor = Cast<IInteractable>(InteractionComponent->ClosestActor);
+		if (InteractableActor) InteractableActor->Interact(this);
 	}
 
 	// Start timer to limit number of interactions per second

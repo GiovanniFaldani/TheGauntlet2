@@ -42,10 +42,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void Interact_Implementation(AActor* Interacter) override;
-
-	UFUNCTION(BlueprintCallable, Category = "Altar")
-	USceneComponent* GetArtifactSocket();
+	virtual void Interact(AActor* Interacter) override;
 
 	UFUNCTION(BlueprintCallable, Category = "Altar")
 	void OnVictoryAssetsLoaded(UNiagaraSystem* VFX, USoundBase* SFX);

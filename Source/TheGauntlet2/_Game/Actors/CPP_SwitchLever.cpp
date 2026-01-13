@@ -68,7 +68,7 @@ void ACPP_SwitchLever::DeactivateSwitch()
 	DynamicMaterialInstance->SetVectorParameterValue(FName("Color"), FLinearColor::Red);
 }
 
-void ACPP_SwitchLever::Interact_Implementation(AActor* Interacter)
+void ACPP_SwitchLever::Interact(AActor* Interacter)
 {
 	if (bIsOn)
 	{

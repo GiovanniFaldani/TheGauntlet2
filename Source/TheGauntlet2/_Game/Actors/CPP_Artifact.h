@@ -30,7 +30,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void Interact_Implementation(AActor* Interacter) override;
+	virtual void Interact(AActor* Interacter) override;
 
 	void UpdateColor(FColor NewColor);
 };

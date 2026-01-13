@@ -9,13 +9,21 @@ void UCPP_QuestSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
 
-    const TCHAR* TablePath = TEXT("/_Game/Assets/DT_Quests.DT_Quests");
-
-    static ConstructorHelpers::FObjectFinder<UDataTable> DataTableAsset(TablePath);
+    const TCHAR* TablePath = TEXT("/Script/Engine.DataTable'/Game/_Game/Assets/DT_Quests.DT_Quests'");
 
     if (!QuestDataTable)
     {
         QuestDataTable = LoadObject<UDataTable>(nullptr, TablePath);
+    }
+
+    check(GEngine);
+    if (QuestDataTable)
+    {
+        GEngine->AddOnScreenDebugMessage(15, 5.f, FColor::Blue , TEXT("Quest DataTable caricata con successo!"));
+    }
+    else
+    {
+        GEngine->AddOnScreenDebugMessage(15, 5.f, FColor::Red, FString::Printf(TEXT("ERRORE: Impossibile trovare la DataTable al percorso: %s"), TablePath));
     }
 
 }
@@ -23,6 +31,9 @@ void UCPP_QuestSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 void UCPP_QuestSubsystem::LoadQuestAssetsAsync(FName QuestID)
 {
     if (!QuestDataTable) return;
+
+    check(GEngine);
+	GEngine->AddOnScreenDebugMessage(16, 5.f, FColor::Green, FString::Printf(TEXT("Caricamento asset per la quest: %s"), *QuestID.ToString()));
 
     static const FString ContextString(TEXT("QuestContext"));
     FQuestDetailsRow* Row = QuestDataTable->FindRow<FQuestDetailsRow>(QuestID, ContextString);

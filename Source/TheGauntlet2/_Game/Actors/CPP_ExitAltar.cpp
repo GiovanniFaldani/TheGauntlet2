@@ -10,6 +10,7 @@ ACPP_ExitAltar::ACPP_ExitAltar()
 	PrimaryActorTick.bCanEverTick = true;
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	RootComponent = Mesh;
 	ArtifactSocket = CreateDefaultSubobject<USceneComponent>(TEXT("ArtifactSocket"));
 	ArtifactSocket->SetupAttachment(RootComponent);
 	ArtifactSocket->SetRelativeLocation(FVector(0.f, 0.f, 100.f));
@@ -38,7 +39,7 @@ void ACPP_ExitAltar::Tick(float DeltaTime)
 
 }
 
-void ACPP_ExitAltar::Interact_Implementation(AActor* Interacter)
+void ACPP_ExitAltar::Interact(AActor* Interacter)
 {
 	// check that Interacter is Player class
 	ACPP_Character* Player = Cast<ACPP_Character>(Interacter);
@@ -72,18 +73,28 @@ void ACPP_ExitAltar::Interact_Implementation(AActor* Interacter)
 
 	QuestSub->onQuestAssetsReady.AddDynamic(this, &ACPP_ExitAltar::OnVictoryAssetsLoaded);
 	QuestSub->LoadQuestAssetsAsync(QuestID);
-	Player->onLevelComplete.Broadcast();
-}
-
-USceneComponent* ACPP_ExitAltar::GetArtifactSocket()
-{
-	return ArtifactSocket;
 }
 
 void ACPP_ExitAltar::OnVictoryAssetsLoaded(UNiagaraSystem* VFX, USoundBase* SFX)
 {
-	if (VFX) UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), VFX, GetActorLocation(), GetActorRotation(), FVector(1.f), true);
+	check(GEngine);
+	GEngine->AddOnScreenDebugMessage(13, 3.f, FColor::Yellow, FString::Printf(TEXT("Assets Loaded: VFX %s, SFX %s"), VFX ? TEXT("Valid") : TEXT("Null"), SFX ? TEXT("Valid") : TEXT("Null")));
+
+	if (VFX) UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+		GetWorld(), 
+		VFX,
+		ArtifactSocket->GetComponentLocation(),
+		ArtifactSocket->GetComponentRotation(),
+		FVector(1.f), 
+		true
+	);
 	if (SFX) UGameplayStatics::PlaySoundAtLocation(GetWorld(), SFX, GetActorLocation());
+
+	// get player controller and broadcast victory
+	if (ACPP_Character* Player = Cast<ACPP_Character>(UGameplayStatics::GetPlayerCharacter(this, 0)))
+	{
+		Player->onLevelComplete.Broadcast();
+	}
 }
 
 void ACPP_ExitAltar::UpdateColor(FColor NewColor)
