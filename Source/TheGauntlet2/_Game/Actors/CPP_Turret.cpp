@@ -109,6 +109,7 @@ void ACPP_Turret::FireProjectile()
 	if (AActor* Projectile = Cast<AActor>(PooledObj.GetObject()))
 	{
 		Projectile->SetActorLocation(ShotSocket->GetComponentLocation());
+		Projectile->SetActorRotation(GetActorRotation());
 		FObjectPoolActivationData ActivationData;
 		IObjectPoolInterface::Execute_Activate(Projectile, ActivationData);
 	}

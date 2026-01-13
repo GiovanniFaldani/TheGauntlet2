@@ -100,6 +100,9 @@ void ACPP_GameModeBase::GameOver()
 	ACPP_PlayerController* PlayerController = Cast<ACPP_PlayerController>(UGameplayStatics::GetPlayerController(this, 0));
 	if (!IsValid(PlayerController)) return;
 
+	ACPP_Character* PlayerCharacter = Cast<ACPP_Character>(PlayerController->GetCharacter());
+	if (!IsValid(PlayerCharacter) || PlayerCharacter->GetCurrentHP() < 0) return;
+
 	PlayerController->PublishUIMessage(TEXT("Game Over!"));
 	PlayerController->SetIgnoreMoveInput(true);
 	PlayerController->SetIgnoreLookInput(true);
