@@ -43,6 +43,9 @@ protected:
 	USceneComponent* PivotRoot;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Ring")
+	bool bPermanentChange;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Ring")
 	bool bIsActive;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Ring")

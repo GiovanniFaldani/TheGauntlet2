@@ -48,6 +48,7 @@ void ACPP_SwitchLever::ActivateSwitch()
 	//onSwitchOn.ExecuteIfBound();
 	bIsOn = true;
 
+	if (IsValid(LinkedTurret)) LinkedTurret->ToggleTurretState();
 	if (IsValid(LinkedDoor)) LinkedDoor->ToggleDoor();
 	if (IsValid(LinkedPlatforms)) LinkedPlatforms->ToggleMovement();
 

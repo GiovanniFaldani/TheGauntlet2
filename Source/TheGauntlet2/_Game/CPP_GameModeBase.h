@@ -52,4 +52,6 @@ public:
 	void GameVictory();
 
 	void GameOver();
+
+	void UpdateRespawnPoint(FVector NewRespawnPoint);
 };

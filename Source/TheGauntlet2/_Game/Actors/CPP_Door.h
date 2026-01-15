@@ -18,6 +18,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
 	UStaticMeshComponent* Mesh;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
+	bool bPermanentChange;
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Door")
 	bool bIsOpen;
 

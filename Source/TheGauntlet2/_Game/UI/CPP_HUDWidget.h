@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "CommonActivatableWidget.h"
+#include "../Subsystems/CPP_QuestSubsystem.h"
+#include "../Data/CPP_QuestAssets.h"
+
 #include "CPP_HUDWidget.generated.h"
 
 class UCommonTextBlock;
@@ -29,6 +32,10 @@ protected:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UCommonTextBlock> InteractionPromptText;
 
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	TObjectPtr<UCommonTextBlock> QuestDescriptionText;
+
+
 protected:
 	virtual void NativeConstruct() override;
 
@@ -40,10 +47,18 @@ public:
 
 	// Post message to screen
 	UFUNCTION(BlueprintCallable, Category = "UI")
-	void DisplaySystemMessage(FString Message);
+	void DisplaySystemMessage(FString Message, float Duration = 3.f);
 
 	// Interaction prompt
 	UFUNCTION(BlueprintCallable, Category = "UI")
 	void SetInteractionMessageVisibility(bool Visible);
+
+	UFUNCTION(BlueprintCallable, Category = "UI")
+	void UpdateQuestDescription(FName QuestID);
+
+private:
+	FTimerHandle SystemMessageTimerHandle;
+
+	void ClearSystemMessage();
 
 };

@@ -40,6 +40,9 @@ void ACPP_Artifact::Interact(AActor* Interacter)
     ACPP_Character* Player = Cast<ACPP_Character>(Interacter);
     if (!Player) return;
 
+    ACPP_PlayerController* PlayerController = Cast<ACPP_PlayerController>(UGameplayStatics::GetPlayerController(this, 0));
+    if (IsValid(PlayerController)) PlayerController->PublishUIMessage(FString::Printf(TEXT("Artifact Collected!")), 3.f);
+
     Mesh->SetSimulatePhysics(false);
     Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	UpdateColor(FColor::Green);

@@ -36,8 +36,13 @@ protected:
 public:
 	// Print message to screen from anywhere
 	UFUNCTION(BlueprintCallable, Category = "UI")
-	void PublishUIMessage(FString Message);
+	void PublishUIMessage(FString Message, float Duration = 3.f);
 
+	// Update quest description
+	UFUNCTION(BlueprintCallable, Category = "UI")
+	void PublishQuestDescription(FName QuestID);
+
+	// Pause
 	UFUNCTION(BlueprintCallable, Category = "UI")
 	void TogglePauseMenu();
 

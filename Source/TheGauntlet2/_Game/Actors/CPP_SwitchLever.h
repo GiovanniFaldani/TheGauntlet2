@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "CPP_Turret.h"
+
 #include "CPP_Door.h"
 #include "CPP_PlatformRing.h"
 #include "../Interfaces/Interactable.h"
@@ -40,6 +42,9 @@ protected:
 	UStaticMeshComponent* Mesh;
 
 	// editonly actor pointers
+	UPROPERTY(EditInstanceOnly, Category = "Switch Lever")
+	ACPP_Turret* LinkedTurret;
+
 	UPROPERTY(EditInstanceOnly, Category = "Switch Lever")
 	ACPP_Door* LinkedDoor;
 

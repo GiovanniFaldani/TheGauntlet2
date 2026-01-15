@@ -30,6 +30,7 @@ void ACPP_Door::ToggleDoor()
 {
 	if(bIsOpen)
 	{
+		if (bPermanentChange) return; // make door impossible to close again
 		bIsOpen = false;
 
 		// set actor active again

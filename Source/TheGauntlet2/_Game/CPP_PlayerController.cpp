@@ -19,6 +19,7 @@ void ACPP_PlayerController::BeginPlay()
 			FInputModeGameOnly GameInputMode;
 			SetInputMode(GameInputMode);
 			bShowMouseCursor = false;
+			PublishQuestDescription(FName("Quest01"));
 		}
 	}
 }
@@ -95,8 +96,8 @@ void ACPP_PlayerController::TogglePauseMenu()
 		// PAUSE
 		if (PauseWidgetClass)
 		{
-			check(GEngine);
-			GEngine->AddOnScreenDebugMessage(5, 1.0f, FColor::Blue, TEXT("Paused"));
+			//check(GEngine);
+			//GEngine->AddOnScreenDebugMessage(5, 1.0f, FColor::Blue, TEXT("Paused"));
 
 			PauseWidgetInstance = CreateWidget<UUserWidget>(this, PauseWidgetClass);
 			if (PauseWidgetInstance)
@@ -117,8 +118,8 @@ void ACPP_PlayerController::TogglePauseMenu()
 void ACPP_PlayerController::UnPause()
 {
 	// RESUME
-	check(GEngine);
-	GEngine->AddOnScreenDebugMessage(5, 1.0f, FColor::Blue, TEXT("Unpaused"));
+	//check(GEngine);
+	//GEngine->AddOnScreenDebugMessage(5, 1.0f, FColor::Blue, TEXT("Unpaused"));
 
 	SetPause(false);
 	bShowMouseCursor = false;
@@ -127,10 +128,18 @@ void ACPP_PlayerController::UnPause()
 	if (PauseWidgetInstance) PauseWidgetInstance->RemoveFromParent();
 }
 
-void ACPP_PlayerController::PublishUIMessage(FString Message)
+void ACPP_PlayerController::PublishUIMessage(FString Message, float Duration)
 {
 	if (HUDWidgetInstance)
 	{
-		HUDWidgetInstance->DisplaySystemMessage(Message);
+		HUDWidgetInstance->DisplaySystemMessage(Message, Duration);
+	}
+}
+
+void ACPP_PlayerController::PublishQuestDescription(FName QuestID)
+{
+	if (HUDWidgetInstance)
+	{
+		HUDWidgetInstance->UpdateQuestDescription(QuestID);
 	}
 }

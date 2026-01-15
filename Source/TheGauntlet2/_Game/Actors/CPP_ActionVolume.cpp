@@ -45,6 +45,11 @@ void ACPP_ActionVolume::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AAct
         case EVolumeType::WinZone:
             Cast<ACPP_Character>(OtherActor)->onLevelComplete.Broadcast();
             break;
+
+        case EVolumeType::UpdateSpawnPointZone:
+			ACPP_GameModeBase* GM = Cast<ACPP_GameModeBase>(GetWorld()->GetAuthGameMode());
+            if (IsValid(GM)) GM->UpdateRespawnPoint(GetActorLocation());
+			break;
         }
     }
 }

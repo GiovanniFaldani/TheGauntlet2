@@ -10,6 +10,9 @@
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraSystem.h"
 #include "../Subsystems/CPP_QuestSubsystem.h"
+#include "../CPP_PlayerController.h"
+#include "Kismet/GameplayStatics.h"
+
 #include "CPP_ExitAltar.generated.h"
 
 UCLASS()
@@ -37,6 +40,9 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Altar")
+	bool bArtifactDelivered = false;
 
 public:	
 	// Called every frame

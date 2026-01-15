@@ -3,7 +3,6 @@
 
 #include "_Game/Subsystems/CPP_QuestSubsystem.h"
 #include "Engine/DataTable.h"
-#include "../Data/CPP_QuestAssets.h"
 
 void UCPP_QuestSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
@@ -19,11 +18,11 @@ void UCPP_QuestSubsystem::Initialize(FSubsystemCollectionBase& Collection)
     check(GEngine);
     if (QuestDataTable)
     {
-        GEngine->AddOnScreenDebugMessage(15, 5.f, FColor::Blue , TEXT("Quest DataTable caricata con successo!"));
+        GEngine->AddOnScreenDebugMessage(15, 5.f, FColor::Blue , TEXT("Quest DataTable loaded successfully!"));
     }
     else
     {
-        GEngine->AddOnScreenDebugMessage(15, 5.f, FColor::Red, FString::Printf(TEXT("ERRORE: Impossibile trovare la DataTable al percorso: %s"), TablePath));
+        GEngine->AddOnScreenDebugMessage(15, 5.f, FColor::Red, FString::Printf(TEXT("ERROR: can't find DataTable at %s"), TablePath));
     }
 
 }
@@ -32,8 +31,8 @@ void UCPP_QuestSubsystem::LoadQuestAssetsAsync(FName QuestID)
 {
     if (!QuestDataTable) return;
 
-    check(GEngine);
-	GEngine->AddOnScreenDebugMessage(16, 5.f, FColor::Green, FString::Printf(TEXT("Caricamento asset per la quest: %s"), *QuestID.ToString()));
+ //   check(GEngine);
+	//GEngine->AddOnScreenDebugMessage(16, 5.f, FColor::Green, FString::Printf(TEXT("Caricamento asset per la quest: %s"), *QuestID.ToString()));
 
     static const FString ContextString(TEXT("QuestContext"));
     FQuestDetailsRow* Row = QuestDataTable->FindRow<FQuestDetailsRow>(QuestID, ContextString);
@@ -64,7 +63,23 @@ void UCPP_QuestSubsystem::OnAssetsLoaded(TSoftObjectPtr<UNiagaraSystem> VfxPtr, 
     }
 }
 
-void UCPP_QuestSubsystem::CompleteQuest()
+FString UCPP_QuestSubsystem::GetQuestDescription(FName QuestID)
 {
-
+    static const FString ContextString(TEXT("HUDQuestContext"));
+    if (QuestDataTable)
+    {
+        FQuestDetailsRow* Row = QuestDataTable->FindRow<FQuestDetailsRow>(QuestID, ContextString);
+        if (Row)
+        {
+            return Row->QuestDescription.ToString();
+        }
+        else
+        {
+            return FString("Quest not found");
+		}
+	}
+    else
+    {
+		return FString("Quest DataTable not loaded");
+    }
 }

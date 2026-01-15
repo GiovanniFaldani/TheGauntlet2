@@ -5,8 +5,13 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "CPP_Turret.h"
+#include "CPP_Door.h"
+#include "CPP_PlatformRing.h"
 #include "../Interfaces/Interactable.h"
+#include "../CPP_PlayerController.h"
 #include "Materials/MaterialInstanceDynamic.h"
+#include "Kismet/GameplayStatics.h"
+
 #include "CPP_TimerLever.generated.h"
 
 //DECLARE_DELEGATE(OnLeverPull)
@@ -44,9 +49,15 @@ protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Timer Lever")
 	UStaticMeshComponent* Mesh;
 
-	// editonly turret pointer
+	// editonly actor pointers
 	UPROPERTY(EditInstanceOnly, Category = "Timer Lever")
 	ACPP_Turret* LinkedTurret;
+
+	UPROPERTY(EditInstanceOnly, Category = "Timer Lever")
+	ACPP_Door* LinkedDoor;
+
+	UPROPERTY(EditInstanceOnly, Category = "Timer Lever")
+	ACPP_PlatformRing* LinkedPlatforms;
 
 public:
 	// Called every frame

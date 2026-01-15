@@ -99,13 +99,15 @@ void ACPP_PlatformRing::Tick(float DeltaTime)
 
 void ACPP_PlatformRing::ToggleMovement()
 {
-    bIsActive = !bIsActive;
-    if(bIsActive)
+    if(!bIsActive)
     {
+        bIsActive = !bIsActive;
         UpdateColor(FColor::Green);
     }
     else
     {
+		if (bPermanentChange) return; // make movement permanent if specified
+        bIsActive = !bIsActive;
         UpdateColor(FColor::Blue);
 	}
 }

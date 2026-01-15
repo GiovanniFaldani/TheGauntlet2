@@ -29,7 +29,6 @@ void ACPP_ExitAltar::BeginPlay()
 
 		UpdateColor(FColor::Purple);
 	}
-	
 }
 
 // Called every frame
@@ -41,6 +40,9 @@ void ACPP_ExitAltar::Tick(float DeltaTime)
 
 void ACPP_ExitAltar::Interact(AActor* Interacter)
 {
+	// avoid interact input bleedthrough when game is frozen
+	if (bArtifactDelivered) return;
+
 	// check that Interacter is Player class
 	ACPP_Character* Player = Cast<ACPP_Character>(Interacter);
 	if (!Player) return;
@@ -48,9 +50,8 @@ void ACPP_ExitAltar::Interact(AActor* Interacter)
 	// check that player has artifact
 	if (!Player->IsArtifactCollected() || !IsValid(Player->GetArtifactRef()))
 	{
-		// TODO write to hud that artifact is missing
-		check(GEngine);
-		GEngine->AddOnScreenDebugMessage(8, 5.f, FColor::Red, TEXT("You need to collect the artifact before exiting the level!"));
+		ACPP_PlayerController* PC = Cast<ACPP_PlayerController>(UGameplayStatics::GetPlayerController(this, 0));
+		if (IsValid(PC)) PC->PublishUIMessage(FString::Printf(TEXT("You need to collect the artifact first!")), 3.f);
 		return;
 	}
 
@@ -66,8 +67,8 @@ void ACPP_ExitAltar::Interact(AActor* Interacter)
 	AActor* Artifact = Player->GetArtifactRef();
 	Artifact->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 	Artifact->AttachToComponent(ArtifactSocket, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
-
 	Player->SetArtifactCollected(false, nullptr);
+	bArtifactDelivered = true;
 
 	// trigger level complete events
 

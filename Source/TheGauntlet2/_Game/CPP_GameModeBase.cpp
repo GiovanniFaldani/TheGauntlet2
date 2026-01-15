@@ -122,3 +122,8 @@ void ACPP_GameModeBase::GameOver()
 		);
 	}
 }
+
+void ACPP_GameModeBase::UpdateRespawnPoint(FVector NewRespawnPoint)
+{
+	RespawnPoint = NewRespawnPoint;
+}

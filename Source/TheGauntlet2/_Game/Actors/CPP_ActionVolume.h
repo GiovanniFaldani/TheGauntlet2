@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/BoxComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "../CPP_GameModeBase.h"
 #include "CPP_ActionVolume.generated.h"
 
 // Define types of volume behavior
@@ -12,7 +14,8 @@ UENUM(BlueprintType)
 enum class EVolumeType : uint8
 {
 	FallZone   UMETA(DisplayName = "Fall zone"),
-	WinZone    UMETA(DisplayName = "Win Zone")
+	WinZone    UMETA(DisplayName = "Win Zone"),
+	UpdateSpawnPointZone UMETA(DisplayName = "Update Spawn Point Zone")
 };
 
 UCLASS()

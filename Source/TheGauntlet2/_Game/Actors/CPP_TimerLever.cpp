@@ -42,16 +42,21 @@ void ACPP_TimerLever::Tick(float DeltaTime)
 
 void ACPP_TimerLever::ActivateLever()
 {
-	check(GEngine);
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("Lever Activated"));
+	//check(GEngine);
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("Lever Activated"));
+
+	ACPP_PlayerController* PlayerController = Cast<ACPP_PlayerController>(UGameplayStatics::GetPlayerController(this, 0));
+	if (IsValid(PlayerController)) PlayerController->PublishUIMessage(FString::Printf(TEXT("Lever Activated!")), 3.f);
 
 	//onLeverPull.ExecuteIfBound();
 	bIsActive = true;
 
 	DynamicMaterialInstance->SetVectorParameterValue(FName("Color"), FLinearColor::Green);
 
-	// update turret
-	if(IsValid(LinkedTurret)) LinkedTurret->ToggleTurretState();
+	// update actors
+	if (IsValid(LinkedTurret)) LinkedTurret->ToggleTurretState();
+	if (IsValid(LinkedDoor)) LinkedDoor->ToggleDoor();
+	if (IsValid(LinkedPlatforms)) LinkedPlatforms->ToggleMovement();
 
 	// Start timer
 	GetWorld()->GetTimerManager().SetTimer(
@@ -65,15 +70,18 @@ void ACPP_TimerLever::ActivateLever()
 
 void ACPP_TimerLever::DeactivateLever()
 {
-	check(GEngine);
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("Lever Deactivated"));
+	//check(GEngine);
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("Lever Deactivated"));
+
+	ACPP_PlayerController* PlayerController = Cast<ACPP_PlayerController>(UGameplayStatics::GetPlayerController(this, 0));
+	if (IsValid(PlayerController)) PlayerController->PublishUIMessage(FString::Printf(TEXT("Turret Reactivated!")), 3.f);
 
 	//onLeverUndo.ExecuteIfBound();
 	bIsActive = false;
 
 	DynamicMaterialInstance->SetVectorParameterValue(FName("Color"), FLinearColor::Red);
 
-	// update turret
+	// update turret only after timer
 	if (IsValid(LinkedTurret)) LinkedTurret->ToggleTurretState();
 
 	GetWorld()->GetTimerManager().ClearTimer(LeverTimerHandle);

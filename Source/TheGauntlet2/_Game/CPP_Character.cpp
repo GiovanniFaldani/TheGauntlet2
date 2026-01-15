@@ -140,7 +140,7 @@ void ACPP_Character::OnInteract()
 {
 	if (!CanInteract) return;
 	check(GEngine);
-	GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Blue, TEXT("Interacted"));
+	//GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Blue, TEXT("Interacted"));
 
 	// Get ClosestActor from InteractionComponent and call Interact() on it.
 	if (IsValid(InteractionComponent->ClosestActor) && InteractionComponent->ClosestActor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
@@ -168,7 +168,13 @@ void ACPP_Character::OnPause()
 void ACPP_Character::ReceiveDamage_Implementation(float DamageReceived)
 {
 	HP -= DamageReceived;
+	// update UI
 	onHealthChanged.Broadcast(HP, MaxHP);
+
+	// print message to HUD
+	ACPP_PlayerController* PC = Cast<ACPP_PlayerController>(GetController());
+	if (IsValid(PC)) PC->PublishUIMessage(FString::Printf(TEXT("Took %.0f damage!"), DamageReceived), 2.f);
+
 	if (HP <= .0f)
 	{
 		onGameOver.Broadcast();
@@ -183,6 +189,8 @@ void ACPP_Character::SetArtifactCollected(bool Value, AActor* Artifact)
 
 }
 
+
+// Public getters
 bool ACPP_Character::IsArtifactCollected()
 {
 	return bHasArtifact;

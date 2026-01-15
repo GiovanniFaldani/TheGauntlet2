@@ -5,6 +5,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "../Interfaces/Interactable.h"
+#include "../CPP_PlayerController.h"
+#include "Kismet/GameplayStatics.h"
+
+
 #include "CPP_Artifact.generated.h"
 
 UCLASS()

@@ -89,9 +89,8 @@ void ACPP_Turret::Tick(float DeltaTime)
 			int32 Active = 0;
 			Subsystem->GetPoolStats(ProjectileClass, Total, Active);
 
-			FString DebugMsg = FString::Printf(TEXT("Pool Size: %d | Active: %d"), Total, Active);
 			check(GEngine);
-			GEngine->AddOnScreenDebugMessage(10, 0.0f, FColor::Cyan, DebugMsg);
+			GEngine->AddOnScreenDebugMessage(10, 0.0f, FColor::Cyan, FString::Printf(TEXT("Pool Size: %d | Active: %d"), Total, Active));
 		}
 	}
 }

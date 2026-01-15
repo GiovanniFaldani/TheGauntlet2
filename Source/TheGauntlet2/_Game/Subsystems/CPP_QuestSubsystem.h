@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
+#include "../Data/CPP_QuestAssets.h"
 #include "Engine/StreamableManager.h"
 #include "NiagaraSystem.h"
 #include "CPP_QuestSubsystem.generated.h"
@@ -28,6 +29,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Quest")
     void LoadQuestAssetsAsync(FName QuestID);
 
+    UFUNCTION(BlueprintCallable, Category = "Quest")
+    FString GetQuestDescription(FName QuestID);
+
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Quest")
     UDataTable* QuestDataTable;
@@ -37,5 +41,4 @@ protected:
 
     void OnAssetsLoaded(TSoftObjectPtr<UNiagaraSystem> VfxPtr, TSoftObjectPtr<USoundBase> SfxPtr);
 
-    void CompleteQuest();
 };
